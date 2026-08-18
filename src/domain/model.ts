@@ -95,7 +95,6 @@ export type RatesByYear = Record<number, Record<string, number>>
 
 export interface CalculatorProject {
   schemaVersion: 1
-  reportName: string
   applicationYear: number
   counts: CountsByTerritory
   rates: RatesByYear

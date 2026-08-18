@@ -49,17 +49,15 @@ function setUsefulWidths(sheet: ExcelJS.Worksheet): void {
 }
 
 function addMetadata(sheet: ExcelJS.Worksheet, project: CalculatorProject): number {
-  sheet.getCell('A3').value = 'Nama laporan'
-  sheet.getCell('B3').value = project.reportName
-  sheet.getCell('A4').value = 'Tahun permohonan'
-  sheet.getCell('B4').value = project.applicationYear
-  sheet.getCell('A5').value = 'Dijana pada'
-  sheet.getCell('B5').value = new Date()
-  sheet.getCell('B5').numFmt = 'dd/mm/yyyy hh:mm'
-  ;['A3', 'A4', 'A5'].forEach((address) => {
+  sheet.getCell('A3').value = 'Tahun permohonan'
+  sheet.getCell('B3').value = project.applicationYear
+  sheet.getCell('A4').value = 'Dijana pada'
+  sheet.getCell('B4').value = new Date()
+  sheet.getCell('B4').numFmt = 'dd/mm/yyyy hh:mm'
+  ;['A3', 'A4'].forEach((address) => {
     sheet.getCell(address).font = { bold: true, color: { argb: COLORS.slate } }
   })
-  return 7
+  return 6
 }
 
 function addSummarySheet(workbook: ExcelJS.Workbook, project: CalculatorProject, result: ProjectionResult): void {

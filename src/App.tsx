@@ -39,9 +39,6 @@ export default function App() {
       ...current,
       applicationYear: year,
       rates: createDefaultRates(year),
-      reportName: current.reportName === `Kalkulator Bantuan Am Persekolahan ${current.applicationYear}`
-        ? `Kalkulator Bantuan Am Persekolahan ${year}`
-        : current.reportName,
     }))
     setNotice('Tahun dan kadar lalai telah dikemas kini')
   }
@@ -116,7 +113,6 @@ export default function App() {
           {currentStep === 1 ? (
             <SettingsStep
               project={project}
-              onNameChange={(reportName) => updateProject((current) => ({ ...current, reportName }))}
               onYearChange={handleYearChange}
             />
           ) : null}

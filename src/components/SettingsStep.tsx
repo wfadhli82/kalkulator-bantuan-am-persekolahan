@@ -1,13 +1,18 @@
 import { CalendarDays, Info, ShieldCheck } from 'lucide-react'
+import { MAX_APPLICATION_YEAR, MIN_APPLICATION_YEAR } from '../domain/defaults'
 import type { CalculatorProject } from '../domain/model'
 
 interface SettingsStepProps {
   project: CalculatorProject
-  onNameChange: (name: string) => void
   onYearChange: (year: number) => void
 }
 
-export function SettingsStep({ project, onNameChange, onYearChange }: SettingsStepProps) {
+const APPLICATION_YEARS = Array.from(
+  { length: MAX_APPLICATION_YEAR - MIN_APPLICATION_YEAR + 1 },
+  (_, index) => MIN_APPLICATION_YEAR + index,
+)
+
+export function SettingsStep({ project, onYearChange }: SettingsStepProps) {
   return (
     <section className="step-panel" aria-labelledby="settings-heading">
       <div className="section-heading">
@@ -20,33 +25,16 @@ export function SettingsStep({ project, onNameChange, onYearChange }: SettingsSt
       </div>
 
       <div className="settings-grid">
-        <label className="form-field" htmlFor="report-name">
-          <span>Nama laporan</span>
-          <input
-            id="report-name"
-            type="text"
-            maxLength={120}
-            value={project.reportName}
-            onChange={(event) => onNameChange(event.target.value)}
-          />
-          <small>Nama ini akan dipaparkan dalam laporan Excel.</small>
-        </label>
-
         <label className="form-field" htmlFor="application-year">
           <span>Tahun permohonan</span>
-          <input
+          <select
             id="application-year"
-            type="number"
-            min="2020"
-            max="2100"
-            inputMode="numeric"
             value={project.applicationYear}
-            onChange={(event) => {
-              const value = Number(event.target.value)
-              if (Number.isInteger(value) && value >= 2020 && value <= 2100) onYearChange(value)
-            }}
-          />
-          <small>Tahun yang dibenarkan: 2020 hingga 2100.</small>
+            onChange={(event) => onYearChange(Number(event.target.value))}
+          >
+            {APPLICATION_YEARS.map((year) => <option key={year} value={year}>{year}</option>)}
+          </select>
+          <small>Pilih tahun antara {MIN_APPLICATION_YEAR} hingga {MAX_APPLICATION_YEAR}.</small>
         </label>
       </div>
 

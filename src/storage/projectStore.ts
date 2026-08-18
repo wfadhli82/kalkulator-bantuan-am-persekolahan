@@ -1,4 +1,4 @@
-import { createNewProject } from '../domain/defaults'
+import { MAX_APPLICATION_YEAR, MIN_APPLICATION_YEAR, createNewProject } from '../domain/defaults'
 import { STAGES, TERRITORIES, type CalculatorProject } from '../domain/model'
 
 export const STORAGE_KEY = 'bap-calculator-project-v1'
@@ -13,7 +13,7 @@ export function normalizeProject(value: unknown): CalculatorProject {
   }
 
   const year = Number(value.applicationYear)
-  if (!Number.isInteger(year) || year < 2020 || year > 2100) {
+  if (!Number.isInteger(year) || year < MIN_APPLICATION_YEAR || year > MAX_APPLICATION_YEAR) {
     throw new Error('Tahun permohonan dalam fail sandaran tidak sah.')
   }
 
@@ -38,9 +38,6 @@ export function normalizeProject(value: unknown): CalculatorProject {
     }
   }
 
-  base.reportName = typeof value.reportName === 'string' && value.reportName.trim()
-    ? value.reportName.trim().slice(0, 120)
-    : base.reportName
   base.updatedAt = typeof value.updatedAt === 'string' ? value.updatedAt : new Date().toISOString()
   return base
 }

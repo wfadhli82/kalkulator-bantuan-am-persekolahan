@@ -8,6 +8,8 @@ import {
 } from './model'
 
 export const RATE_HORIZON_YEARS = 6
+export const MIN_APPLICATION_YEAR = 2026
+export const MAX_APPLICATION_YEAR = 2050
 
 export function defaultRateForStage(stageId: string): number {
   if (/^primary-d[1-3]$/.test(stageId)) return 500
@@ -39,10 +41,9 @@ export function createDefaultRates(applicationYear: number): RatesByYear {
 }
 
 export function createNewProject(applicationYear = new Date().getFullYear()): CalculatorProject {
-  const safeYear = Math.min(2100, Math.max(2020, applicationYear))
+  const safeYear = Math.min(MAX_APPLICATION_YEAR, Math.max(MIN_APPLICATION_YEAR, applicationYear))
   return {
     schemaVersion: 1,
-    reportName: `Kalkulator Bantuan Am Persekolahan ${safeYear}`,
     applicationYear: safeYear,
     counts: createEmptyCounts(),
     rates: createDefaultRates(safeYear),
