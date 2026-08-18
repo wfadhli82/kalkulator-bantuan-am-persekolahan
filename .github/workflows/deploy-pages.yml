@@ -1,0 +1,50 @@
+name: Uji dan terbit ke GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil kod
+        uses: actions/checkout@v4
+      - name: Sediakan Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Pasang kebergantungan
+        run: npm ci
+      - name: Jalankan ujian
+        run: npm test
+      - name: Bina aplikasi
+        run: npm run build
+      - name: Sediakan GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Muat naik artifak Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Terbitkan laman
+        id: deployment
+        uses: actions/deploy-pages@v4
