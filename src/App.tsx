@@ -89,7 +89,7 @@ export default function App() {
           </div>
           <div className="header-actions">
             <span className="save-status"><HardDriveDownload size={16} aria-hidden="true" /> {notice}</span>
-            <button className="icon-button" type="button" title="Projek baharu" onClick={handleNewProject}><FilePlus2 aria-hidden="true" /></button>
+            <button className="icon-button" type="button" title="Reset Data" aria-label="Reset Data" onClick={handleNewProject}><FilePlus2 aria-hidden="true" /></button>
             <button className="icon-button" type="button" title="Muat turun sandaran JSON" onClick={() => downloadJsonBackup(project)}><FileJson aria-hidden="true" /></button>
             <button className="icon-button" type="button" title="Import sandaran JSON" onClick={() => importInputRef.current?.click()}><Upload aria-hidden="true" /></button>
             <input ref={importInputRef} type="file" accept="application/json,.json" hidden onChange={(event) => void handleImport(event.target.files?.[0])} />
