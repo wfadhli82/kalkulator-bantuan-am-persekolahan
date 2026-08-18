@@ -101,8 +101,8 @@ export default function App() {
         <div className="hero">
           <div>
             <span className="hero__tag"><CloudOff size={15} aria-hidden="true" /> Tiada data peribadi · Boleh digunakan luar talian</span>
-            <h1>Kira kelulusan hingga tamat persekolahan dengan yakin.</h1>
-            <p>Masukkan bilangan pelajar sekali. Sistem mengunjurkan kohort, kadar dan peruntukan bagi Kuala Lumpur, Labuan dan Putrajaya.</p>
+            <h1>Prototaip Kalkulator Bantuan Am Persekolahan</h1>
+            <p>Memudahkan pengiraan unjuran pelajar dan peruntukan</p>
           </div>
           <div className="hero__year"><span>Tahun permohonan</span><strong>{project.applicationYear}</strong></div>
         </div>

@@ -12,6 +12,8 @@ describe('App', () => {
   it('guides the user through the four calculator steps', async () => {
     const user = userEvent.setup()
     render(<App />)
+    expect(screen.getByRole('heading', { name: 'Prototaip Kalkulator Bantuan Am Persekolahan' })).toBeInTheDocument()
+    expect(screen.getByText('Memudahkan pengiraan unjuran pelajar dan peruntukan')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Tetapkan laporan' })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /seterusnya/i }))
     expect(screen.getByRole('heading', { name: 'Masukkan bilangan pelajar' })).toBeInTheDocument()
