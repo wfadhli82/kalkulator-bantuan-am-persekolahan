@@ -158,6 +158,7 @@ thead th { color: var(--slate-500); background: #fafcfc; font-size: .68rem; text
 tfoot th { color: var(--teal-900); background: var(--teal-50); border-bottom: 0; }
 
 .step-actions { padding: 18px 38px 26px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--slate-200); }
+.download-actions { display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap; }
 .button--download { min-width: 225px; }
 footer { padding: 22px 28px 36px; text-align: center; color: var(--slate-500); font-size: .72rem; }
 footer p { margin: 0 auto; max-width: 720px; line-height: 1.6; }
@@ -210,6 +211,9 @@ footer p { margin: 0 auto; max-width: 720px; line-height: 1.6; }
   .step-actions { padding: 15px 16px 20px; }
   .step-actions .button { padding: 0 12px; }
   .button--download { min-width: 0; flex: 1; }
+  .step-actions { flex-wrap: wrap; }
+  .download-actions { width: 100%; display: grid; grid-template-columns: 1fr; }
+  .download-actions .button { width: 100%; }
 }
 
 @media (max-width: 420px) {

@@ -24,6 +24,7 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /seterusnya/i }))
     expect(screen.getByRole('heading', { name: 'Keputusan unjuran' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /muat turun laporan excel/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /muat turun excel v2/i })).toBeInTheDocument()
   })
 
   it('labels the reset action and keeps data when reset is cancelled', async () => {

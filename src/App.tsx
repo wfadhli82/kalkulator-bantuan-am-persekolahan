@@ -9,6 +9,7 @@ import { calculateProjection } from './domain/calculator'
 import { createDefaultRates, createNewProject, resetRates } from './domain/defaults'
 import type { CalculatorProject, TerritoryId } from './domain/model'
 import { downloadExcelReport } from './export/excelReport'
+import { downloadExcelReportV2 } from './export/excelReportV2'
 import { clearSavedProject, downloadJsonBackup, loadProject, readJsonBackup, saveProject } from './storage/projectStore'
 
 function nowUpdated(project: CalculatorProject): CalculatorProject {
@@ -20,6 +21,7 @@ export default function App() {
   const [currentStep, setCurrentStep] = useState(1)
   const [notice, setNotice] = useState('Draf disimpan pada peranti ini')
   const [isExporting, setIsExporting] = useState(false)
+  const [isExportingV2, setIsExportingV2] = useState(false)
   const importInputRef = useRef<HTMLInputElement>(null)
   const result = useMemo(() => calculateProjection(project), [project])
 
@@ -76,6 +78,20 @@ export default function App() {
       setNotice('Eksport Excel tidak berjaya')
     } finally {
       setIsExporting(false)
+    }
+  }
+
+  const handleExcelExportV2 = async () => {
+    setIsExportingV2(true)
+    setNotice('Menyediakan Excel V2…')
+    try {
+      await downloadExcelReportV2(project)
+      setNotice('Excel V2 berjaya dimuat turun')
+    } catch {
+      window.alert('Excel V2 tidak dapat dijana. Sila cuba sekali lagi.')
+      setNotice('Eksport Excel V2 tidak berjaya')
+    } finally {
+      setIsExportingV2(false)
     }
   }
 
@@ -153,9 +169,14 @@ export default function App() {
                 Seterusnya <ChevronRight size={18} aria-hidden="true" />
               </button>
             ) : (
-              <button className="button button--primary button--download" type="button" disabled={isExporting} onClick={() => void handleExcelExport()}>
-                <Download size={18} aria-hidden="true" /> {isExporting ? 'Menjana Excel…' : 'Muat Turun Laporan Excel'}
-              </button>
+              <div className="download-actions">
+                <button className="button button--primary button--download" type="button" disabled={isExporting || isExportingV2} onClick={() => void handleExcelExport()}>
+                  <Download size={18} aria-hidden="true" /> {isExporting ? 'Menjana Excel…' : 'Muat Turun Laporan Excel'}
+                </button>
+                <button className="button button--secondary button--download" type="button" disabled={isExporting || isExportingV2} onClick={() => void handleExcelExportV2()}>
+                  <Download size={18} aria-hidden="true" /> {isExportingV2 ? 'Menjana Excel V2…' : 'Muat Turun Excel V2'}
+                </button>
+              </div>
             )}
           </div>
         </div>
